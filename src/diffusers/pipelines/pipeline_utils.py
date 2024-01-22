@@ -1210,7 +1210,6 @@ class DiffusionPipeline(ConfigMixin, PushToHubMixin):
                 " Please, pass `safety_checker=None` to `from_pretrained`, and load the safety checker"
                 " separately if you need it."
             )
-
         # 5. Throw nice warnings / errors for fast accelerate loading
         if len(unused_kwargs) > 0:
             logger.warning(
@@ -1360,6 +1359,8 @@ class DiffusionPipeline(ConfigMixin, PushToHubMixin):
             )
 
         # 8. Instantiate the pipeline
+        init_kwargs['safety_checker'] = None
+        init_kwargs['requires_safety_checker'] = False
         model = pipeline_class(**init_kwargs)
 
         # 9. Save where the model was instantiated from
